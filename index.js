@@ -31,18 +31,19 @@ app.use(requestLogger);
 app.use("/api/v1", routes);
 app.use(errorLogger);
 
+// Health check endpoint
 app.get("/healthz", (req, res) => {
   res.status(200).json({
     status: "ok",
-    timestamp: new Date(),
+    timestamp: new Date().toISOString(),
     env: NODE_ENV,
   });
 });
 
+// Root endpoint
 app.get("/", (req, res) => {
   res.send("Backend is running. Use /api/v1 for API endpoints.");
 });
-
 
 // Global error handler
 app.use((err, req, res, next) => {
@@ -67,6 +68,7 @@ const startServer = async () => {
       logger.info(`Environment: ${NODE_ENV}`);
     });
 
+    // Increase timeout for slow operations
     server.timeout = 300000;
 
     const shutdown = () => {
