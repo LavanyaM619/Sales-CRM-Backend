@@ -34,7 +34,7 @@ app.use(errorLogger);
 // Health check endpoint
 app.get("/healthz", (req, res) => {
   res.status(200).json({
-    status: "ok",
+    status: "it is working",
     timestamp: new Date().toISOString(),
     env: NODE_ENV,
   });
