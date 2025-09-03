@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-// Register a new user
+
 export const registerUser = async (req, res) => {
   try {
     const { name, lastname, email, password, role } = req.body;
@@ -33,7 +33,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Login user and update lastLogin
+
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -68,7 +68,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// Get all users
+
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find().select("-password");
@@ -95,7 +95,7 @@ export const seedAdminUser = async () => {
         lastname: "User",
         email: adminEmail,
         password: hashedPassword,
-        role: "admin", // lowercase to match enum
+        role: "admin", // lowercase 
       });
       console.log("Admin user created:", adminEmail);
     } else {

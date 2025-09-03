@@ -45,10 +45,7 @@ app.use((err, req, res, next) => {
 // Start server
 const startServer = async () => {
   try {
-    // Connect to DB
     await connectToDatabase();
-
-    // Seed admin user once
     await seedAdminUser();
 
     const PORT = process.env.PORT || 3000;
@@ -58,8 +55,6 @@ const startServer = async () => {
     });
 
     server.timeout = 300000;
-
-    // Graceful shutdown
     const shutdown = () => {
       logger.info("Shutting down server...");
       server.close(() => {
@@ -76,8 +71,6 @@ const startServer = async () => {
     process.exit(1);
   }
 };
-
-// Handle unhandled rejections and exceptions
 process.on("unhandledRejection", (reason, promise) => {
   logger.error("Unhandled Rejection:", { promise, reason });
 });
