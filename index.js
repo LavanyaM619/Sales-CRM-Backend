@@ -31,6 +31,14 @@ app.use(requestLogger);
 app.use("/api/v1", routes);
 app.use(errorLogger);
 
+app.get("/healthz", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    timestamp: new Date(),
+    env: NODE_ENV,
+  });
+});
+
 // Global error handler
 app.use((err, req, res, next) => {
   const status = err.status || 500;
@@ -55,6 +63,7 @@ const startServer = async () => {
     });
 
     server.timeout = 300000;
+
     const shutdown = () => {
       logger.info("Shutting down server...");
       server.close(() => {
@@ -65,12 +74,13 @@ const startServer = async () => {
 
     process.on("SIGINT", shutdown);
     process.on("SIGTERM", shutdown);
-
   } catch (error) {
     logger.error("Database connection failed:", error);
     process.exit(1);
   }
 };
+
+// Global unhandled error handlers
 process.on("unhandledRejection", (reason, promise) => {
   logger.error("Unhandled Rejection:", { promise, reason });
 });
