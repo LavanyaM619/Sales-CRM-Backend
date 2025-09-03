@@ -39,6 +39,11 @@ app.get("/healthz", (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.send("Backend is running. Use /api/v1 for API endpoints.");
+});
+
+
 // Global error handler
 app.use((err, req, res, next) => {
   const status = err.status || 500;
