@@ -6,6 +6,7 @@ import {
   updateOrder,
   deleteOrder,
   markOrderViewed,
+  exportOrdersCsv, 
 } from "../controllers/orderController.js";
 import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
 
@@ -14,12 +15,11 @@ const router = express.Router();
 router.use(protect);
 
 router.post("/", createOrder);
-router.get("/", authorizeRoles("admin", "manager"), getAllOrders);
+router.get("/", authorizeRoles("admin"), getAllOrders);
+router.get("/export/csv", authorizeRoles("admin"), exportOrdersCsv); 
 router.get("/:id", getOrderById);
 router.put("/:id", updateOrder);
 router.delete("/:id", authorizeRoles("admin"), deleteOrder);
-
-// Mark order as viewed
 router.patch("/:id/viewed", authorizeRoles("admin"), markOrderViewed);
 
 export default router;
