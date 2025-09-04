@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: Sales-CRM-Backend
+    env: node
+    region: oregon
+    branch: main
+    buildCommand: npm install
+    startCommand: node index.js
+    autoDeploy: true
+    pullRequestPreviews:
+      enabled: true
+      mode: automatic
+    envVars:
+      - key: NODE_ENV
+        value: development
+      - key: PORT
+        value: 3001
+      - key: MONGODB_URI
+        value: mongodb+srv://ruthralk:ruthralk123@cluster0.hirscww.mongodb.net/
+      - key: ADMIN_EMAIL
+        value: admin@gmail.com
+      - key: ADMIN_PASSWORD
+        value: admin123
+      - key: JWT_SECRET
+        value: /frqzxZxievddgTQIGsKErYR/ZtiaYwDvzd5vdNcOIU=
