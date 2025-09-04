@@ -11,7 +11,7 @@ import { protect, authorizeRoles } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.use(protect);//product
+router.use(protect);
 
 router.post("/", createOrder);
 router.get("/", authorizeRoles("admin", "manager"), getAllOrders);
