@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.post("/seed-admin", seedAdminUser); // optional manual seed endpoint
+router.post("/seed-admin", seedAdminUser);
 router.get("/users", protect, authorizeRoles("admin"), getAllUsers);
 
 export default router;
