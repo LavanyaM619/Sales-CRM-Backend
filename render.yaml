@@ -7,9 +7,6 @@ services:
     buildCommand: npm install
     startCommand: node index.js
     autoDeploy: true
-    pullRequestPreviews:
-      enabled: true
-      mode: automatic
     envVars:
       - key: NODE_ENV
         value: development
