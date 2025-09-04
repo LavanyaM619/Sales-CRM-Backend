@@ -9,16 +9,16 @@ const categorySchema = new mongoose.Schema({
   description: { type: String, trim: true },
 }, { timestamps: true });
 
-categorySchema.pre("save", async function(next) {
-  if (!this.categoryId) {
+categorySchema.pre("save", async function (next) {
+  if (this.isNew) {
     const counter = await Counter.findOneAndUpdate(
-      { id: "categoryId" },
-      { $inc: { seq: 1 } },
-      { new: true, upsert: true }
+      { id: "categoryId" }, { $inc: { seq: 1 } }, { new: true, upsert: true }
     );
     this.categoryId = `C${String(counter.seq).padStart(3, "0")}`;
   }
-  this.slug = slugify(this.name, { lower: true, strict: true });
+  if (this.isModified("name")) {
+    this.slug = slugify(this.name, { lower: true, strict: true });
+  }
   next();
 });
 
