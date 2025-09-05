@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import Counter from "./Counter.js";
 
-export const roles = ["admin", "user"]; // add "manager" here if you need it
+export const roles = ["admin", "user"]; 
 
 const userSchema = new mongoose.Schema({
   userId: { type: String, unique: true },
